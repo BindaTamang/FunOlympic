@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<link href="{% static 'css/carousel.css' %}" rel="stylesheet" />
+
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+</style>
+<div class="conatiner marketing">
+  <div class="row">
+    {% for game in games %}
+    <div class="col-lg-2">
+      <img
+        class="bd-placeholder-img rounded-circle"
+        src="{{ game.image.url }}"
+        width="140"
+        height="140"
+      />
+      <h2>{{ game.name }}</h2>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- /.row -->
+</div>
+{% endblock content %}

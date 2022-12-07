@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for photo in photos %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <img src="{{ photo.image.url }}" class="bd-placeholder-img card-img-top"
+                                 width="100%" height="225">
+                            <div class="card-body">
+                                <p class="card-text">{{ photo.description }}</p>
+{#                                <div class="d-flex justify-content-between align-items-center">#}
+{#                                    <div class="btn-group">#}
+{#                                        <button type="button" class="btn btn-sm btn-outline-secondary"#}
+{#                                                data-bs-toggle="modal" data-bs-target="#viewImage">View#}
+{#                                        </button>#}
+{#                                    </div>#}
+{#                                </div>#}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+{#                    <div class="modal fade" id="viewImage" data-bs-backdrop="static" data-bs-keyboard="false"#}
+{#                         tabindex="-1"#}
+{#                         aria-labelledby="viewImageLabel" aria-hidden="true">#}
+{#                        <div class="modal-dialog">#}
+{#                            <div class="modal-content">#}
+{#                                <div class="modal-header">#}
+{#                                    <h5 class="modal-title" id="viewImageLabel">View image</h5>#}
+{#                                    <button type="button" class="btn-close" data-bs-dismiss="modal"#}
+{#                                            aria-label="Close"></button>#}
+{#                                </div>#}
+{#                                <div class="modal-body text-center">#}
+{#                                    <img src="{{ photo.image.url }}" alt="">#}
+{#                                </div>#}
+{#                                <div class="modal-footer">#}
+{#                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <!-- End Modal -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

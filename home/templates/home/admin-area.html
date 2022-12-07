@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <div class="mx-auto bg-light p-5 rounded" style="width: 50%;">
+            <h1>Welcome to admin area</h1>
+        <h3>Being admin you can perform following tasks:</h3>
+        <ul>
+            <li><a href="{% url "gallery:add-photo" %}">Add photo to Gallery</a></li>
+            <li><a href="{% url "video:video-add" %}">Upload video</a></li>
+            <li><a href="{% url "home:add-game" %}">Add games</a></li>
+            <li><a href="{% url "home:user-list" %}">Manage user</a></li>
+            <li><a href="{% url "schedule:schedule-add" %}">Add game schedule</a></li>
+        </ul>
+    </div>
+{% endblock content %}

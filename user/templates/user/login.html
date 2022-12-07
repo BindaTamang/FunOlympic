@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-light p-5 rounded">
+    <div class="container">
+
+        <div class="row g-3">
+            <div class="col-md-10 mx-auto col-lg-5">
+                <h2 class="text-center">Welcome back</h2>
+    <h3 class="text-center">Please login to start your session</h3>
+                <form method="POST">
+                    {% csrf_token %}
+                        <div class="row mb-3">
+                            <label for="email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" name="email" required autofocus>
+                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                                {% for field in login_form %}
+                                    {% if field.label == "Email" %}
+                                        {% for error in field.errors %}
+                                            <p style="color: red;">{{ error }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="password" class="col-sm-2 col-form-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                {% for field in login_form %}
+                                    {% if field.label == "Password" %}
+                                        {% for error in field.errors %}
+                                            <p style="color: red;">{{ error }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if login_form.non_field_errors %}
+                            <div style="color: red;">
+                                <p>{{ login_form.non_field_errors }}</p>
+                            </div>
+                        {% endif %}
+                        <p><a href="{% url "password_reset" %}">Forgot password?</a></p>
+                        <p><a href="{% url "user:register" %}">Wanna become regisered User?</a></p>
+                
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% comment %}
+<div class="mx-auto bg-light p-5 rounded" style="width: 50%;">
+    <h2 class="text-center">Welcome back</h2>
+    <h3 class="text-center">Please login to start your session</h3>
+
+    <form method="POST">
+    {% csrf_token %}
+        <div class="row mb-3">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" name="email" required autofocus>
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                {% for field in login_form %}
+                    {% if field.label == "Email" %}
+                        {% for error in field.errors %}
+                            <p style="color: red;">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" name="password" required>
+                {% for field in login_form %}
+                    {% if field.label == "Password" %}
+                        {% for error in field.errors %}
+                            <p style="color: red;">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% if login_form.non_field_errors %}
+            <div style="color: red;">
+                <p>{{ login_form.non_field_errors }}</p>
+            </div>
+        {% endif %}
+        <p><a href="{% url "password_reset" %}">Forgot password?</a></p>
+        <p><a href="{% url "user:register" %}">Wanna become regisered User?</a></p>
+
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+</div>
+{%endcomment%}

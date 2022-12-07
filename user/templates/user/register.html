@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-light p-5 rounded">
+    <div class="container">
+
+        <div class="row g-3">
+            <div class="col-md-10 mx-auto col-lg-5">
+                <h2 class="text-center">Want to become registered user?</h2>
+        <h3 class="text-center">Always Welcome</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <label for="full_name" class="col-sm-2 col-form-label">Full name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="full_name" name="full_name" required autofocus>
+                    {% for field in registration_form %}
+                        {% if field.label == "Full name" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    {% for field in registration_form %}
+                        {% if field.label == "Email" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="country" class="col-sm-2 col-form-label">Country</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="country" name="country">
+                        <option value="NP" selected="selected" name="country">Nepal</option>
+                        {% for code, name in countries %}
+                            <option value="{{ code }}" name="country">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% for field in registration_form %}
+                        {% if field.label == "Country" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="password1" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="password1" name="password1" required>
+                    {% for field in registration_form %}
+                        {% if field.label == "Password" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="confirm-password" class="col-sm-2 col-form-label">Confirm Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="confirm-password" name="password2" required>
+                    {% for field in registration_form %}
+                        {% if field.label == "Password confirmation" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% if registration_form.non_field_errors %}
+                <div style="color: red;">
+                    <p>{{ registration_form.non_field_errors }}</p>
+                </div>
+            {% endif %}
+            {% if messages %}
+                <ul style="color: green; list-style-type: none;">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <p><a href="{% url "user:login" %}">Alread have an account?</a></p>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% comment %}
+    <div class="mx-auto bg-light p-5 rounded" style="width: 50%;">
+        <h2 class="text-center">Want to become registered user?</h2>
+        <h3 class="text-center">Always Welcome</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <label for="full_name" class="col-sm-2 col-form-label">Full name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="full_name" name="full_name" required autofocus>
+                    {% for field in registration_form %}
+                        {% if field.label == "Full name" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    {% for field in registration_form %}
+                        {% if field.label == "Email" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="country" class="col-sm-2 col-form-label">Country</label>
+                <div class="col-sm-10">
+                    <select class="form-control" id="country" name="country">
+                        <option value="NP" selected="selected" name="country">Nepal</option>
+                        {% for code, name in countries %}
+                            <option value="{{ code }}" name="country">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                    {% for field in registration_form %}
+                        {% if field.label == "Country" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="password1" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="password1" name="password1" required>
+                    {% for field in registration_form %}
+                        {% if field.label == "Password" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="confirm-password" class="col-sm-2 col-form-label">Confirm Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="confirm-password" name="password2" required>
+                    {% for field in registration_form %}
+                        {% if field.label == "Password confirmation" %}
+                            {% for error in field.errors %}
+                                <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+            {% if registration_form.non_field_errors %}
+                <div style="color: red;">
+                    <p>{{ registration_form.non_field_errors }}</p>
+                </div>
+            {% endif %}
+            {% if messages %}
+                <ul style="color: green; list-style-type: none;">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <p><a href="{% url "user:login" %}">Alread have an account?</a></p>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+{% endcomment %}
+{% endblock content %}

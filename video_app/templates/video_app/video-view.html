@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load embed_video_tags %}
+
+{% block content %}
+    <div class="row g-3">
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                {% video video.video_link '100%x600' %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <h3>You may also like other videos</h3>
+                {% for v in videos %}
+                    <div class="card-body text-center">
+                        <a href="{% url "video:video-detail" v.id %}">
+                            <h5 class="card-title">{{ v.title }}</h5>
+{#                            <img src="{{ v.image.url }}" style="width: 100px; height: 100px;" alt="">#}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card shadow-sm">
+                <h1>Comments</h1>
+                <ul class="list-group list-group-numbered">
+                    {% for comment in comments %}
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{ comment.user.full_name }}</div>
+                            {{ comment.comment }}
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Commented on {{ comment.created_at }}</span>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+                <div class="mx-auto bg-light p-5 rounded" style="width: 50%;">
+                    <form method="POST" action="{% url "video:add_comment_on_video" video.id  %}">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <label for="comment" class="col-sm-2 col-form-label">Comment</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="comment" name="comment" required></textarea>
+                            </div>
+                        </div>
+                        {% if messages %}
+                            <ul style="color: green; list-style-type: none;">
+                                {% for message in messages %}
+                                    <li class="{{ message.tags }}">{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">Comment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
